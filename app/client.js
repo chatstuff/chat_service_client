@@ -6,7 +6,7 @@ var port = 3701;
 app.listen(port);
 console.log("Listening on port " + port);
 
-var io = require('socket.io/node_modules/socket.io-client');
+var io = require('socket.io-client');
 
 client = io.connect("http://localhost:3700");
 
@@ -21,5 +21,6 @@ client.on('message', function(data) {
 
 app.get("/", function(req, res){
   // res.send(req.query);
-  client.emit(req.query.event ? req.query.event : "send", req.query.message ? req.query.message : "Test data my friend");
+  client.emit(req.query.event ? req.query.event : "chat", req.query.message ? req.query.message : "Test data my friend");
+  res.end();
 });
