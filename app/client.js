@@ -11,9 +11,25 @@ var io = require('socket.io-client');
 client = io.connect("http://localhost:3700");
 
 client.on('connect',function() {
-	console.log("CONNECTED!!!");
-  client.emit("test","foo");
+	console.log("CONNECTED!!! :" + client.io.engine.id);
 }); 
+
+client.on('reconnect',function(num) {
+	console.log("RECONNECTED!!! : " + num + ' id: ' + client.io.engine.id);
+});
+
+client.on('reconnecting',function(num) {
+	console.log("RECONNECTING!!! : " + num);
+});
+
+client.on('reconnecting',function() {
+	console.log("CONNECTING!!! : ");
+});
+
+client.on('error',function(err) {
+	console.log("ERROR!!! : " + err.message);
+});
+
 client.on('message', function(data) {
   console.log('Received message on event: message. data: ' + JSON.stringify(data))
 });
@@ -21,6 +37,7 @@ client.on('message', function(data) {
 
 app.get("/", function(req, res){
   // res.send(req.query);
+  console.log('Received req: ' + JSON.stringify(req.query));
   client.emit(req.query.event ? req.query.event : "chat", req.query.message ? req.query.message : "Test data my friend");
   res.end();
 });
