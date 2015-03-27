@@ -35,10 +35,16 @@ client.on('message', function(data) {
   console.log('Received message on event: message. data: ' + JSON.stringify(data))
 });
 
-
 app.get("/", function(req, res){
   // res.send(req.query);
   console.log('Received req: ' + JSON.stringify(req.query));
-  client.emit(req.query.event ? req.query.event : "chat", req.query.message ? req.query.message : "Test data my friend");
+  client.emit(req.query.event ? req.query.event : "chat", {clientId: '98798779', text: req.query.text ? req.query.text : 'test', msg_id: Date.now()}, function(err, data){
+  	if (err){
+  		console.log("Error:: " + JSON.stringify(err));
+  	}
+  	else{
+  		console.log('success:: ' + JSON.stringify(data));
+  	}
+  });
   res.end();
 });

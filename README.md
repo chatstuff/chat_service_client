@@ -1,3 +1,4 @@
 - Install npm and nodejs
 - Run server using `npm start`
 - Might want to use `DEBUG=socket.io-client:* NODE_ENV=development npm start` to print debug logs
+- Send events to server using http end pint: `http://localhost:3701/?event=chat&message=hooha`
