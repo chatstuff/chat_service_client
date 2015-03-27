@@ -8,7 +8,8 @@ console.log("Listening on port " + port);
 
 var io = require('socket.io-client');
 
-client = io.connect("http://localhost:3700");
+var client = io.connect("ws://chat_service:8080");
+// client = io.connect("ws://localhost:6001");
 
 client.on('connect',function() {
 	console.log("CONNECTED!!! :" + client.io.engine.id);

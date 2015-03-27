@@ -1,3 +1,3 @@
 - Install npm and nodejs
 - Run server using `npm start`
-- May pass `DEBUG=socket.io:*` or `DEBUG=*` during server initiation to print debug logs
+- Might want to use `DEBUG=socket.io-client:* NODE_ENV=development npm start` to print debug logs
