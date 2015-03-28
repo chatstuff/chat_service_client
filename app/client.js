@@ -8,11 +8,25 @@ console.log("Listening on port " + port);
 
 var io = require('socket.io-client');
 
+
+var register = function(){
+	client.emit("register", {clientId: '98798779'}, function(err, data){
+		if (err){
+			console.log("Registration Error:: " + JSON.stringify(err));
+		}
+		else{
+			console.log('Registration success:: ' + JSON.stringify(data));
+		}
+	});
+};
+
+
 var client = io.connect("ws://chat_service:8080");
 // client = io.connect("ws://localhost:6001");
 
 client.on('connect',function() {
 	console.log("CONNECTED!!! :" + client.io.engine.id);
+	register();
 }); 
 
 client.on('reconnect',function(num) {
@@ -34,6 +48,9 @@ client.on('error',function(err) {
 client.on('message', function(data) {
   console.log('Received message on event: message. data: ' + JSON.stringify(data))
 });
+
+
+
 
 app.get("/", function(req, res){
   // res.send(req.query);
